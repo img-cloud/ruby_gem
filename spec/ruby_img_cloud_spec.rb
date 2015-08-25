@@ -27,28 +27,38 @@ describe RubyImgCloud do
   
   describe "#upload" do
 		#let(:request) { 'My grandmom gave me a sweater for Christmas.' }
-    let(:response) { subject.upload('/home/rahul/Work/ruby_img_cloud/spec/fixtures/files/kodai.jpg', ['kodai', 'trip'], 'b7c70db0-4564-11e5-a527-41742323d59e') }
+    image_path = 'spec/fixtures/files/kodai.jpg'
+    tags = 'kodai, trip'
+    apiKey = '89ef57a0-44bd-11e5-914c-65cdfbe9254e'
+    folder = 'rubyGemTest'
+    let(:response) { subject.upload(image_path, tags, apiKey, folder) }
+
     it 'should be able to upload an image' do
-    	puts "*"*100
-    	puts output
       expect {
 		    JSON.parse(response.body)
 		  }.to_not raise_error
     end
+
+    it 'should include image upload url, tags, folder' do
+      body = JSON.parse(response.body)
+      expect(body).to include('url')
+      expect(body).to include('tags')
+      expect(body).to include('folder')
+    end  
   end
 
-  # describe "#transform" do
-		# #let(:request) { 'My grandmom gave me a sweater for Christmas.' }
-  #   let(:response) { subject.transform }
+  describe "#transform" do
+    img_url = "http://img-cloud.herokuapp.com/img-cloud-qa/1440154522499_1436524274_car1.jpg"
+    height = 100
+    width = 100 
+    let(:response) { subject.transform(height, width, img_url) }
 
-  #   it 'should be able to upload an image' do
-  #   	puts "*"*100
-  #   	puts output
-  #     expect {
-		#     JSON.parse(response.body)
-		#   }.to_not raise_error
-  #   end
-  # end
+    it 'should be able to transform an image' do
+      #expect(response).to have_http_status(:created)
+      #expect(response).to be_success
+      expect(response.code).to eq("200")
+    end
+  end
 
   it 'has a version number' do
     expect(RubyImgCloud::VERSION).not_to be nil
