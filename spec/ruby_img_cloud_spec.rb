@@ -26,12 +26,10 @@ describe RubyImgCloud do
  #  end
   
   describe "#upload" do
-		#let(:request) { 'My grandmom gave me a sweater for Christmas.' }
     image_path = 'spec/fixtures/files/kodai.jpg'
     tags = 'kodai, trip'
-    apiKey = '89ef57a0-44bd-11e5-914c-65cdfbe9254e'
     folder = 'rubyGemTest'
-    let(:response) { subject.upload(image_path, tags, apiKey, folder) }
+    let(:response) { subject.upload(image_path, tags, folder) }
 
     it 'should be able to upload an image' do
       expect {
@@ -48,15 +46,56 @@ describe RubyImgCloud do
   end
 
   describe "#transform" do
-    img_url = "http://img-cloud.herokuapp.com/img-cloud-qa/1440154522499_1436524274_car1.jpg"
+    img_path = "/ic_4e1756/1440667545769_1436524274_car1.jpg"
     height = 100
     width = 100 
-    let(:response) { subject.transform(height, width, img_url) }
+    let(:response) { subject.transform(height, width, img_path) }
 
     it 'should be able to transform an image' do
       #expect(response).to have_http_status(:created)
       #expect(response).to be_success
       expect(response.code).to eq("200")
+    end
+  end
+  
+  describe "#configure" do
+    before :each do
+      subject.configure do |config|
+        config.base_uri = 'http://image-cloud.herokuapp.com'
+        config.apiKey = 'fake-f8341be0-4c99-11e5-a2ca-27be34e17568'
+      end
+    end
+
+    it "returns the base_uri and apiKey as configured" do
+      config = subject.configuration
+
+      expect(config.base_uri).to be_a(String)
+      expect(config.base_uri).to eq('http://image-cloud.herokuapp.com')
+
+      expect(config.apiKey).to be_a(String)
+      expect(config.apiKey).to eq('fake-f8341be0-4c99-11e5-a2ca-27be34e17568')
+    end
+
+    after :each do
+      subject.reset
+    end
+  end
+  
+  describe ".reset" do
+    before :each do
+      subject.configure do |config|
+        config.base_uri = 'http://image-cloud.herokuapp.com'
+        config.apiKey = 'fake-f8341be0-4c99-11e5-a2ca-27be34e17568'
+      end
+    end
+
+    it "resets the configuration" do
+      subject.reset
+
+      config = subject.configuration
+
+      expect(config.base_uri).to eq('http://img-cloud.herokuapp.com')
+      expect(config.apiKey).to eq('f8341be0-4c99-11e5-a2ca-27be34e17568')
     end
   end
 

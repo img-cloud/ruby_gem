@@ -13,7 +13,7 @@ RSpec.describe RubyImgCloudHelper do
   let(:options) { {} }
 
   context "#img_cloud_tag" do
-    let(:test_tag) { TestTag.new( helper.img_cloud_tag('http://img-cloud.herokuapp.com/img-cloud-qa/1440154522499_1436524274_car1.jpg', 100, 100)) }
+    let(:test_tag) { TestTag.new( helper.img_cloud_tag('/ic_4e1756/1440667545769_1436524274_car1.jpg', 100, 100)) }
 
     context ":image_tag" do
       let(:options) { }
