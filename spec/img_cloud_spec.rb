@@ -49,7 +49,7 @@ describe ImgCloud do
     img_path = "/ic_4e1756/1440667545769_1436524274_car1.jpg"
     height = 100
     width = 100 
-    let(:response) { subject.transform(img_path, height, width) }
+    let(:response) { subject.transform(img_path, :height => height, :width => width) }
 
     it 'should be able to transform an image' do
       #expect(response).to have_http_status(:created)

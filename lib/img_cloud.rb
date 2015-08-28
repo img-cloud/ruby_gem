@@ -38,21 +38,27 @@ module ImgCloud
     end
   end
     
-  def self.transform(image_path, height, width)
-    transform_args = "h_#{height},w_#{width}"
-    parts = image_path.rpartition('/')
-    parts[1] = transform_args
-
-    uri = URI.parse("#{ImgCloud.configuration.base_uri}#{parts.join('/')}")
+  def self.transform(image_path, options = {})
+    uri = URI.parse(transform_url(image_path, options))
     http = Net::HTTP.new(uri.host, uri.port)
-    res = http.get(uri.path)
-    #res.body
+    http.get(uri.path)
   end
 
-  def self.transform_url(image_path, height, width)
-    transform_args = "h_#{height},w_#{width}"
+  def self.transform_url(image_path, options = {})
+    transform_args = []
+    
+    transform_args << "h_#{options[:height]}" if options[:height].present? && (options[:height].to_i > 0)
+    transform_args << "w_#{options[:width]}"  if options[:width].present? && (options[:width].to_i > 0)
+
+    args = transform_args.join(',')
+
     parts = image_path.rpartition('/')
-    parts[1] = transform_args
+
+    if args.blank?
+      parts.delete_at(1)
+    else  
+      parts[1] = args
+    end 
 
     ImgCloud.configuration.base_uri + parts.join('/')
   end
