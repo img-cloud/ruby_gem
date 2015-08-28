@@ -47,14 +47,14 @@ module ImgCloud
   def self.transform_url(image_path, options = {})
     transform_args = []
     
-    transform_args << "h_#{options[:height]}" if options[:height].present? && (options[:height].to_i > 0)
-    transform_args << "w_#{options[:width]}"  if options[:width].present? && (options[:width].to_i > 0)
+    transform_args << "h_#{options[:height]}" if (options[:height].to_i > 0)
+    transform_args << "w_#{options[:width]}"  if (options[:width].to_i > 0)
 
     args = transform_args.join(',')
 
     parts = image_path.rpartition('/')
 
-    if args.blank?
+    if args.empty?
       parts.delete_at(1)
     else  
       parts[1] = args

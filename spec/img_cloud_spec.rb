@@ -26,6 +26,12 @@ describe ImgCloud do
  #  end
   
   describe "#upload" do
+    before :each do
+      subject.configure do |config|
+        config.apiKey = 'f8341be0-4c99-11e5-a2ca-27be34e17568'
+      end
+    end
+
     image_path = 'spec/fixtures/files/kodai.jpg'
     tags = 'kodai, trip'
     folder = 'rubyGemTest'
@@ -81,7 +87,7 @@ describe ImgCloud do
     end
   end
   
-  describe ".reset" do
+  describe "#reset" do
     before :each do
       subject.configure do |config|
         config.base_uri = 'http://image-cloud.herokuapp.com'
@@ -95,7 +101,7 @@ describe ImgCloud do
       config = subject.configuration
 
       expect(config.base_uri).to eq('http://img-cloud.herokuapp.com')
-      expect(config.apiKey).to eq('f8341be0-4c99-11e5-a2ca-27be34e17568')
+      expect(config.apiKey).to eq(nil)
     end
   end
 
