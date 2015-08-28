@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe RubyImgCloud do
-	subject { RubyImgCloud }
+describe ImgCloud do
+	subject { ImgCloud }
 
 	# describe "#sign_up" do
 	# 	#let(:request) { 'My grandmom gave me a sweater for Christmas.' }
@@ -49,7 +49,7 @@ describe RubyImgCloud do
     img_path = "/ic_4e1756/1440667545769_1436524274_car1.jpg"
     height = 100
     width = 100 
-    let(:response) { subject.transform(height, width, img_path) }
+    let(:response) { subject.transform(img_path, height, width) }
 
     it 'should be able to transform an image' do
       #expect(response).to have_http_status(:created)
@@ -100,7 +100,7 @@ describe RubyImgCloud do
   end
 
   it 'has a version number' do
-    expect(RubyImgCloud::VERSION).not_to be nil
+    expect(ImgCloud::VERSION).not_to be nil
   end
 
 end

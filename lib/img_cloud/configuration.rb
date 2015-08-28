@@ -1,4 +1,4 @@
-module RubyImgCloud
+module ImgCloud
   class Configuration
   	attr_accessor :base_uri, :apiKey
 

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ruby_img_cloud/version'
+require 'img_cloud/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ruby_img_cloud"
-  spec.version       = RubyImgCloud::VERSION
+  spec.name          = "img_cloud"
+  spec.version       = ImgCloud::VERSION
   spec.authors       = ["Rahul Singh"]
   spec.email         = ["flytorahul00@gmail.com"]
 

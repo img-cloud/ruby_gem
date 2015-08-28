@@ -1,10 +1,10 @@
-require "ruby_img_cloud/version"
-require "ruby_img_cloud/configuration"
+require "img_cloud/version"
+require "img_cloud/configuration"
 require 'net/http/post/multipart'
 #require 'net/http'
 require 'json'
 
-module RubyImgCloud
+module ImgCloud
 
   class << self
     attr_accessor :configuration
@@ -28,33 +28,33 @@ module RubyImgCloud
   # end
   
   def self.upload(path, tags, folder)
-    uri = URI.parse("#{RubyImgCloud.configuration.base_uri}/upload")
+    uri = URI.parse("#{ImgCloud.configuration.base_uri}/upload")
     req = Net::HTTP::Post::Multipart.new uri.path,
           "image" => UploadIO.new(File.new(path), "image/jpg", "image.jpg"),
-          "tags" => tags, "apiKey" => RubyImgCloud.configuration.apiKey, "folder" => folder
+          "tags" => tags, "apiKey" => ImgCloud.configuration.apiKey, "folder" => folder
 
     res = Net::HTTP.start(uri.host, uri.port) do |http|
       http.request(req)
     end
   end
     
-  def self.transform(height, width, image_path)
+  def self.transform(image_path, height, width)
     transform_args = "h_#{height},w_#{width}"
     parts = image_path.rpartition('/')
     parts[1] = transform_args
 
-    uri = URI.parse("#{RubyImgCloud.configuration.base_uri}#{parts.join('/')}")
+    uri = URI.parse("#{ImgCloud.configuration.base_uri}#{parts.join('/')}")
     http = Net::HTTP.new(uri.host, uri.port)
     res = http.get(uri.path)
     #res.body
   end
 
-  def self.transform_url(height, width, image_path)
+  def self.transform_url(image_path, height, width)
     transform_args = "h_#{height},w_#{width}"
     parts = image_path.rpartition('/')
     parts[1] = transform_args
 
-    RubyImgCloud.configuration.base_uri + parts.join('/')
+    ImgCloud.configuration.base_uri + parts.join('/')
   end
 
   def self.configure
@@ -62,5 +62,5 @@ module RubyImgCloud
   end
 end
 
-require "ruby_img_cloud/helper" if defined?(::ActionView::Base)
-require "ruby_img_cloud/railtie" if defined?(Rails) && defined?(Rails::Railtie)
+require "img_cloud/helper" if defined?(::ActionView::Base)
+require "img_cloud/railtie" if defined?(Rails) && defined?(Rails::Railtie)

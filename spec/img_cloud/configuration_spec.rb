@@ -1,6 +1,6 @@
 require "spec_helper"
 
-module RubyImgCloud
+module ImgCloud
   describe Configuration do
     describe "#base_uri" do
       it "default value is " do

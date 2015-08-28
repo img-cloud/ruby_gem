@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_img_cloud (0.1.0)
+    img_cloud (0.1.0)
       multipart-post
 
 GEM
@@ -75,4 +75,4 @@ DEPENDENCIES
   bundler (~> 1.8)
   rake (~> 10.0)
   rspec
-  ruby_img_cloud!
+  img_cloud!

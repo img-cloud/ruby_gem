@@ -1,14 +1,14 @@
 require 'rspec'
 require 'spec_helper'
-require 'ruby_img_cloud'
+require 'img_cloud'
 require 'action_view'
-require 'ruby_img_cloud/helper'
+require 'img_cloud/helper'
 
 helper_class = Class.new do
-  include RubyImgCloudHelper
+  include ImgCloudHelper
 end
 
-RSpec.describe RubyImgCloudHelper do
+RSpec.describe ImgCloudHelper do
   let(:helper) { helper_class.new }
   let(:options) { {} }
 

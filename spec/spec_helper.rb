@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'ruby_img_cloud'
+require 'img_cloud'
 require 'rexml/parsers/ultralightparser'
 
 RSpec.configure do |config|
