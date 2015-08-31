@@ -21,9 +21,20 @@ Or install it yourself as:
     $ gem install img_cloud
 
 ## Usage
+you can configure api key and base uri for the gem like this in an initializer
 
-TODO: Write usage instructions here
+ImgCloud.configure do |config|
+  config.base_uri = 'http://img-cloud.liftoffllc.in/'     #optional
+  config.apiKey = 'f837dje0-4c99-11e5-a2ca-27ben7f17568'   #required
+end
 
+The methods are as follows:
+
+ImgCloud.upload   # parameters => path(required), tags (optional, comma separated string) & folder (optional )
+
+ImgCloud.transform    #parameters image_path(required, from the upload response), options(hash, height & width)
+
+helper method : 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
