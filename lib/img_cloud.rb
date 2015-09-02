@@ -20,7 +20,7 @@ module ImgCloud
   # Uploads the image, returns the image url and tags and folder in json format
   # accepts image path as required parameter, and tags ( comma separated string ), folder ( string ) as optional parameters
   def self.upload(path, tags, folder)
-    uri = URI.parse("#{ImgCloud.configuration.base_uri}/#{ImgCloud.configuration.upload_endpoint}")
+    uri = URI.parse("#{ImgCloud.configuration.base_uri}#{ImgCloud.configuration.upload_endpoint}")
     req = Net::HTTP::Post::Multipart.new uri.path,
           "image" => UploadIO.new(File.new(path), "image/jpg", "image.jpg"),
           "tags" => tags, "apiKey" => ImgCloud.configuration.apiKey, "folder" => folder
@@ -54,8 +54,7 @@ module ImgCloud
       parts.delete_at(1)
     else  
       parts[1] = args
-    end 
-
+    end
     ImgCloud.configuration.base_uri + parts.join('/')
   end
 

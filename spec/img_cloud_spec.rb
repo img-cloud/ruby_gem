@@ -6,7 +6,7 @@ describe ImgCloud do
   describe "#upload" do
     before :each do
       subject.configure do |config|
-        config.apiKey = 'ab3f6690-51a9-11e5-ad6e-43e59ca3a833'
+        config.apiKey = '8d2ba590-51b0-11e5-9560-35ff41886c85'
       end
     end
 
@@ -30,7 +30,7 @@ describe ImgCloud do
   end
 
   describe "#transform" do
-    img_path = "/mocktestdata/kodai.jpg"
+    img_path = "/spectestdata/kodai.jpg"
     height = 100
     width = 100 
     let(:response) { subject.transform(img_path, :height => height, :width => width) }
@@ -76,7 +76,7 @@ describe ImgCloud do
 
       config = subject.configuration
 
-      expect(config.base_uri).to eq('http://img-cloud.herokuapp.com')
+      expect(config.base_uri).to eq('http://imgcloud.liftoffllc.in')
       expect(config.apiKey).to eq(nil)
     end
   end

@@ -23,7 +23,7 @@ you can configure api key and base uri for the gem like this in an initializer
 
 ```ruby
 ImgCloud.configure do |config|
-  config.base_uri = 'http://img-cloud.liftoffllc.in/'     #optional
+  config.base_uri = 'http://www.imgcloud.io/'     #optional
   config.apiKey = 'f837dje0-4c99-11e5-a2ca-27ben7f17568'   #required
 end
 ```
