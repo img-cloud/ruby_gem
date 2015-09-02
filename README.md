@@ -1,8 +1,6 @@
 # ImgCloud
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/img_cloud`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+ruby gem for img cloud. Uploading images will return image path that can be then used in a helper tag to transform images (currently only height & width options are supported).
 
 ## Installation
 
@@ -23,18 +21,31 @@ Or install it yourself as:
 ## Usage
 you can configure api key and base uri for the gem like this in an initializer
 
+```ruby
 ImgCloud.configure do |config|
   config.base_uri = 'http://img-cloud.liftoffllc.in/'     #optional
   config.apiKey = 'f837dje0-4c99-11e5-a2ca-27ben7f17568'   #required
 end
+```
 
 The methods are as follows:
 
-ImgCloud.upload   # parameters => path(required), tags (optional, comma separated string) & folder (optional )
+```ruby
+ImgCloud.upload(image_path, tags, folder)  # parameters => path(required), tags (optional, comma separated string) & folder (optional)
+```
 
-ImgCloud.transform    #parameters image_path(required, from the upload response), options(hash, height & width)
+```ruby
+ImgCloud.transform(image_path, options)   #parameters image_path(required, from the upload response), options(hash, height & width) (optional, original image is default)
+```
 
 helper method : 
+
+```ruby
+img_cloud_tag "/ic_4e1756/1440667545769_1436524274_car1.jpg", :width=>100, :height=>100
+```
+	displays a transformed image, accepts a relative image path and height width parameters. Additional parameters if any are ignored,
+	and the original image is displayed if no or invalid height width parameters are provided.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.

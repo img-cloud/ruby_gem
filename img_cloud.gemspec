@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   # end
 
   spec.summary       = %q{ruby gem for img cloud, upload/transform images}
-  #spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.description   = %q{ruby gem for img cloud, upload/transform images}
   spec.homepage      = "https://github.com/img-cloud/ruby_gem"
   spec.license       = "MIT"
 

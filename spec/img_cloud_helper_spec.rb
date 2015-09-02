@@ -10,7 +10,7 @@ end
 
 RSpec.describe ImgCloudHelper do
   let(:helper) { helper_class.new }
-  let(:image_path) { '/ic_4e1756/1440667545769_1436524274_car1.jpg' }
+  let(:image_path) { '/mocktestdata/kodai.jpg' }
   
   let(:test_tag) { TestTag.new( helper.img_cloud_tag(image_path, options)) }
 

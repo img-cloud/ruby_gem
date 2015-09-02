@@ -1,7 +1,6 @@
 require "img_cloud/version"
 require "img_cloud/configuration"
 require 'net/http/post/multipart'
-#require 'net/http'
 require 'json'
 
 module ImgCloud
@@ -17,18 +16,11 @@ module ImgCloud
   def self.reset
     @configuration = Configuration.new
   end
-  # def self.sign_up(email, firstname, lastname, company, password)
-  #   params = {'email' => email, 'firstName' => firstname, 'lastName' => lastname, 'company' => company, 'password' => password}
-  #   json_headers = {"Content-Type" => "application/json",
-  #               "Accept" => "application/json"}
-  #   uri = URI.parse('http://img-cloud.herokuapp.com/users')
-  #   http = Net::HTTP.new(uri.host, uri.port)
-  #   res = http.post(uri.path, params.to_json, json_headers)
-		# res.body
-  # end
-  
+ 
+  # Uploads the image, returns the image url and tags and folder in json format
+  # accepts image path as required parameter, and tags ( comma separated string ), folder ( string ) as optional parameters
   def self.upload(path, tags, folder)
-    uri = URI.parse("#{ImgCloud.configuration.base_uri}/upload")
+    uri = URI.parse("#{ImgCloud.configuration.base_uri}/#{ImgCloud.configuration.upload_endpoint}")
     req = Net::HTTP::Post::Multipart.new uri.path,
           "image" => UploadIO.new(File.new(path), "image/jpg", "image.jpg"),
           "tags" => tags, "apiKey" => ImgCloud.configuration.apiKey, "folder" => folder
@@ -37,14 +29,18 @@ module ImgCloud
       http.request(req)
     end
   end
-    
+  
+  # return the image as byte data,
+  # accepts a relative image path and height width parameters.
   def self.transform(image_path, options = {})
-    uri = URI.parse(transform_url(image_path, options))
+    uri = URI.parse(request_url(image_path, options))
     http = Net::HTTP.new(uri.host, uri.port)
     http.get(uri.path)
   end
 
-  def self.transform_url(image_path, options = {})
+  # returns image url for img_cloud_tag helper
+  # accepts a relative image path and height width parameters.
+  def self.request_url(image_path, options = {})
     transform_args = []
     
     transform_args << "h_#{options[:height]}" if (options[:height].to_i > 0)

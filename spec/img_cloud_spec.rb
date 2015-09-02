@@ -2,33 +2,11 @@ require 'spec_helper'
 
 describe ImgCloud do
 	subject { ImgCloud }
-
-	# describe "#sign_up" do
-	# 	#let(:request) { 'My grandmom gave me a sweater for Christmas.' }
- #    let(:response) { subject.sign_up('flytorahul00@gmail.com', 'Rahul', 'Singh', 'Liftoff', 'Password1') }
-
- #    it 'should be able to sign up' do
- #    	# puts "*"*100
- #    	# puts response
- #      #expect(output).to eq({})
- #      expect {
-	# 	    JSON.parse(response.body)
-	# 	  }.to_not raise_error
-
-	# 	  response.should be_success
- #      body = JSON.parse(response.body)
- #      # body.should include('group')
- #      # groups = body['group']
- #      # groups.should have(2).items
- #      # groups.all? {|group| group.key?('customers_count')}.should be_true
- #      # groups.any? {|group| group.key?('customer_ids')}.should be_false
- #    end
- #  end
   
   describe "#upload" do
     before :each do
       subject.configure do |config|
-        config.apiKey = 'f8341be0-4c99-11e5-a2ca-27be34e17568'
+        config.apiKey = 'ab3f6690-51a9-11e5-ad6e-43e59ca3a833'
       end
     end
 
@@ -39,8 +17,8 @@ describe ImgCloud do
 
     it 'should be able to upload an image' do
       expect {
-		    JSON.parse(response.body)
-		  }.to_not raise_error
+        JSON.parse(response.body)
+      }.to_not raise_error
     end
 
     it 'should include image upload url, tags, folder' do
@@ -52,14 +30,12 @@ describe ImgCloud do
   end
 
   describe "#transform" do
-    img_path = "/ic_4e1756/1440667545769_1436524274_car1.jpg"
+    img_path = "/mocktestdata/kodai.jpg"
     height = 100
     width = 100 
     let(:response) { subject.transform(img_path, :height => height, :width => width) }
 
     it 'should be able to transform an image' do
-      #expect(response).to have_http_status(:created)
-      #expect(response).to be_success
       expect(response.code).to eq("200")
     end
   end
