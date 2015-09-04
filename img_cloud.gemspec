@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'multipart-post', '~> 2.0.0'
   spec.add_development_dependency "actionpack", "~> 3.2.0"
+  spec.add_development_dependency 'travis', '~> 1.8.0'
 end

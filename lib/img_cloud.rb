@@ -22,7 +22,7 @@ module ImgCloud
   def self.upload(path, tags, folder)
     uri = URI.parse("#{ImgCloud.configuration.base_uri}#{ImgCloud.configuration.upload_endpoint}")
     req = Net::HTTP::Post::Multipart.new uri.path,
-          "image" => UploadIO.new(File.new(path), "image/jpg", "image.jpg"),
+          "image" => UploadIO.new(File.new(path), "image/jpg", path.split('/').last),
           "tags" => tags, "apiKey" => ImgCloud.configuration.apiKey, "folder" => folder
 
     res = Net::HTTP.start(uri.host, uri.port) do |http|
