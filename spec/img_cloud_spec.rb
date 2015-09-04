@@ -6,6 +6,7 @@ describe ImgCloud do
   describe "#upload" do
     before :each do
       subject.configure do |config|
+        config.base_uri = 'http://imgcloud.liftoffllc.in'
         config.apiKey = '8d2ba590-51b0-11e5-9560-35ff41886c85'
       end
     end
@@ -30,6 +31,11 @@ describe ImgCloud do
   end
 
   describe "#transform" do
+    before :each do
+      subject.configure do |config|
+        config.base_uri = 'http://imgcloud.liftoffllc.in'
+      end
+    end
     img_path = "/spectestdata/kodai.jpg"
     height = 100
     width = 100 
@@ -43,8 +49,8 @@ describe ImgCloud do
   describe "#configure" do
     before :each do
       subject.configure do |config|
-        config.base_uri = 'http://image-cloud.herokuapp.com'
-        config.apiKey = 'fake-f8341be0-4c99-11e5-a2ca-27be34e17568'
+        config.base_uri = 'http://imgcloud.liftoffllc.in'
+        config.apiKey = 'f8341be0-4c99-11e5-a2ca-27be34e17568'
       end
     end
 
@@ -52,10 +58,10 @@ describe ImgCloud do
       config = subject.configuration
 
       expect(config.base_uri).to be_a(String)
-      expect(config.base_uri).to eq('http://image-cloud.herokuapp.com')
+      expect(config.base_uri).to eq('http://imgcloud.liftoffllc.in')
 
       expect(config.apiKey).to be_a(String)
-      expect(config.apiKey).to eq('fake-f8341be0-4c99-11e5-a2ca-27be34e17568')
+      expect(config.apiKey).to eq('f8341be0-4c99-11e5-a2ca-27be34e17568')
     end
 
     after :each do
@@ -66,8 +72,8 @@ describe ImgCloud do
   describe "#reset" do
     before :each do
       subject.configure do |config|
-        config.base_uri = 'http://image-cloud.herokuapp.com'
-        config.apiKey = 'fake-f8341be0-4c99-11e5-a2ca-27be34e17568'
+        config.base_uri = 'http://imgcloud.liftoffllc.in'
+        config.apiKey = 'f8341be0-4c99-11e5-a2ca-27be34e17568'
       end
     end
 
@@ -76,7 +82,7 @@ describe ImgCloud do
 
       config = subject.configuration
 
-      expect(config.base_uri).to eq('http://imgcloud.liftoffllc.in')
+      expect(config.base_uri).to eq('http://www.imgcloud.io')
       expect(config.apiKey).to eq(nil)
     end
   end
