@@ -1,6 +1,6 @@
 # ImgCloud
 
-ruby gem for img cloud. Uploading images will return image path that can be then used in a helper tag to transform images (currently only height & width options are supported).
+ruby gem for img cloud. Uploading images will return image path that can be then used in a helper tag to transform images.
 
 ## Installation
 
@@ -28,23 +28,34 @@ ImgCloud.configure do |config|
 end
 ```
 
-The methods are as follows:
+### Uploading an Image
 
 ```ruby
 ImgCloud.upload(image_path, tags, folder)  # parameters => path(required), tags (optional, comma separated string) & folder (optional)
 ```
 
-```ruby
-ImgCloud.transform(image_path, options)   #parameters image_path(required, from the upload response), options(hash, height & width) (optional, original image is default)
-```
-
-helper method : 
+### Helper method for Image tag
 
 ```ruby
-img_cloud_tag "/ic_4e1756/1440667545769_1436524274_car1.jpg", :width=>100, :height=>100
+img_cloud_tag image_path, options
 ```
-	displays a transformed image, accepts a relative image path and height width parameters. Additional parameters if any are ignored,
-	and the original image is displayed if no or invalid height width parameters are provided.
+
+#### Options:
+
+parameters                             | Type
+---------------------------------------|------
+height, width, borderWidth, blur       | Integer
+borderColor, class, style, alt, title  | String
+sepia, grayscale, crop, scale          | Boolean
+
+
+#### Example:
+
+```ruby
+img_cloud_tag "/ic_4e1756/1440667545769_1436524274_car1.jpg", :width => 100, :height => 100, :sepia => true, :borderWidth => 5, :borderColor => 'red', :class => 'img_class', :style => "margin:10px"
+```
+displays a transformed image, accepts a relative image path and optional parameters.
+If the parameters are incorrect, it is not applied to the image.
 
 ## Development
 

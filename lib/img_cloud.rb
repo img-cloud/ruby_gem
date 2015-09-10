@@ -45,6 +45,14 @@ module ImgCloud
     
     transform_args << "h_#{options[:height]}" if (options[:height].to_i > 0)
     transform_args << "w_#{options[:width]}"  if (options[:width].to_i > 0)
+    transform_args << "blur_#{options[:blur]}" if (options[:blur].to_i > 0)
+    transform_args << "sepia" if options[:sepia]
+    transform_args << "crop" if options[:crop]
+    transform_args << "scale" if options[:scale]
+    transform_args << "grayscale" if options[:grayscale]
+    if (options[:borderWidth].to_i > 0) or options[:borderColor]
+      transform_args << "bdr_#{options[:borderWidth]}-#{options[:borderColor]}"
+    end  
 
     args = transform_args.join(',')
 

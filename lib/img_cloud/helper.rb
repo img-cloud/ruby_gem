@@ -9,6 +9,11 @@ module ImgCloudHelper
 	def img_cloud_tag(img_path, options = {})
 		height = "height=\"#{options[:height]}\"" if (options[:height].to_i > 0)
 		width = "width=\"#{options[:width]}\"" if (options[:width].to_i > 0)
-		"<img src=\"#{ImgCloud.request_url(img_path, options)}\" #{height} #{width}>"
+		dom_class = "class=\"#{options[:class]}\"" if options[:class]
+		alt = "alt=\"#{options[:alt]}\"" if options[:alt]
+		title = "title=\"#{options[:title]}\"" if options[:title]
+		style = "style=\"#{options[:style]}\"" if options[:style]
+
+		"<img src=\"#{ImgCloud.request_url(img_path, options)}\" #{height} #{width} #{dom_class} #{alt} #{title} #{style}>"
 	end	
 end  

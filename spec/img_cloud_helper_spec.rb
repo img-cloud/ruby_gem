@@ -17,12 +17,13 @@ RSpec.describe ImgCloudHelper do
   context "#img_cloud_tag" do
 
     context "img_cloud_tag with correct options" do
-      let(:options) { {:width => '100', :height => '100'} }
+      let(:options) { {:width => '100', :height => '100', :crop => true, :scale => true, :borderWidth => 5, :borderColor => 'red', :grayscale => true, :sepia => true, :blur => 10} }
+      let(:transform_params) { "h_#{options[:height]},w_#{options[:width]},blur_10,sepia,crop,scale,grayscale,bdr_#{options[:borderWidth]}-#{options[:borderColor]}"}
 
       it "should return image tag" do
         image_arr = image_path.split('/').reject!(&:empty?)
         expect(test_tag.name).to match( 'img')
-        expect(test_tag['src']).to eq( "#{ImgCloud.configuration.base_uri}/#{image_arr[0]}/h_#{options[:height]},w_#{options[:width]}/#{image_arr[1]}")
+        expect(test_tag['src']).to eq( "#{ImgCloud.configuration.base_uri}/#{image_arr[0]}/#{transform_params}/#{image_arr[1]}")
         expect(test_tag['height']).to eq(options[:height])
         expect(test_tag['width']).to eq(options[:width])
       end

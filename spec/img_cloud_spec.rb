@@ -37,9 +37,9 @@ describe ImgCloud do
       end
     end
     img_path = "/spectestdata/kodai.jpg"
-    height = 100
-    width = 100 
-    let(:response) { subject.transform(img_path, :height => height, :width => width) }
+    options = {:width => 100, :height => 100, :crop => true, :scale => true, :borderWidth => 5, :borderColor => 'red', :grayscale => true, :sepia => true, :blur => 10}
+
+    let(:response) { subject.transform(img_path, options) }
 
     it 'should be able to transform an image' do
       expect(response.code).to eq("200")
@@ -67,7 +67,7 @@ describe ImgCloud do
     after :each do
       subject.reset
     end
-  end
+  end 
   
   describe "#reset" do
     before :each do
