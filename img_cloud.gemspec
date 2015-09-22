@@ -23,11 +23,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.8"
+  spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency 'rspec', '>= 3.2'
+  spec.add_development_dependency 'rspec', '~> 3.2'
 
-  spec.add_runtime_dependency 'multipart-post', '~> 2.0.0'
-  spec.add_development_dependency "actionpack", "~> 3.2.0"
-  spec.add_development_dependency 'travis', '~> 1.8.0'
+  spec.add_runtime_dependency 'multipart-post', '~> 2.0', '>= 2.0.0'
+  spec.add_development_dependency "actionpack", '~> 3.2', '>= 3.2.0'
+  spec.add_development_dependency 'travis', '~> 1.8', '>= 1.8.0'
 end
