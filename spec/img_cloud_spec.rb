@@ -11,25 +11,51 @@ describe ImgCloud do
       end
     end
 
-    image_path = 'spec/fixtures/files/kodai.jpg'
+    image_paths = ['spec/fixtures/files/kodai.jpg']
     tags = 'kodai, trip'
     folder = 'rubyGemTest'
-    let(:response) { subject.upload(image_path, tags, folder) }
+    let(:response) { subject.upload(image_paths, tags, folder) }
 
-    it 'should be able to upload an image' do
+    it 'should be able to upload images' do
       expect {
         JSON.parse(response.body)
       }.to_not raise_error
     end
 
-    it 'should include image upload url, tags, folder' do
+    it 'should include image upload urls, tags, folder' do
       body = JSON.parse(response.body)
-      expect(body).to include('url')
+      expect(body).to include('urls')
       expect(body).to include('tags')
       expect(body).to include('folder')
     end  
   end
+  
+  describe "#delete" do
+    before :each do
+      subject.configure do |config|
+        config.base_uri = 'http://imgcloud.liftoffllc.in'
+        config.apiKey = '8d2ba590-51b0-11e5-9560-35ff41886c85'
+      end
+    end
+    image_paths = ['spec/fixtures/files/kodai.jpg']
+    folder = 'rubyGemTest'
+    let(:response) { subject.upload(image_paths, "", folder) }
+    
+    let(:del_response) { subject.delete(JSON.parse(response.body)['urls'][0]) }
 
+    it 'should be able to delete the uploaded image' do
+      expect {
+        JSON.parse(del_response.body)
+      }.to_not raise_error
+    end
+
+    it 'should include deleted message' do
+      body = JSON.parse(del_response.body)
+      expect(body).to include('message')
+      expect(body['message']).to eq("deleted")
+    end
+  end
+    
   describe "#transform" do
     before :each do
       subject.configure do |config|

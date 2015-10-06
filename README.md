@@ -1,6 +1,6 @@
 # ImgCloud
 
-ruby gem for img cloud. Uploading images will return image path that can be then used in a helper tag to transform images.
+ruby gem for img cloud. Uploading images will return image paths that can be then used in a helper tag to transform images.
 
 ## Installation
 
@@ -28,12 +28,16 @@ ImgCloud.configure do |config|
 end
 ```
 
-### Uploading an Image
+### Uploading Images
 
 ```ruby
-ImgCloud.upload(image_path, tags, folder)  # parameters => path(required), tags (optional, comma separated string) & folder (optional)
+ImgCloud.upload(image_paths, tags, folder)  # parameters => image_paths(required, array of strings), tags (optional, comma separated string) & folder (optional, string)
 ```
+### Deleting an image
 
+```ruby
+ImgCloud.delete(path) #path is the urls(one of the) returned in the response for upload
+```
 ### Helper method for Image tag
 
 ```ruby
