@@ -52,6 +52,8 @@ height, width, borderWidth, blur       | Integer
 borderColor, class, style, alt, title  | String
 sepia, grayscale, crop, scale          | Boolean
 
+for borderColor color name, hex, rgb and rgba values are accepted.
+eg:- blue, #0000FF, rgb(0,0,255), rgba(0,0,255,0.3)
 
 #### Example:
 

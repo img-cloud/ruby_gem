@@ -34,7 +34,7 @@ module ImgCloud
   def self.delete(path)
     uri = URI.parse(path + "?apiKey=" + ImgCloud.configuration.apiKey)
     http = Net::HTTP.new(uri.host, uri.port)
-    http.delete(uri.path)
+    http.delete(uri.request_uri)
   end  
   
   # return the image as byte data,
@@ -49,7 +49,23 @@ module ImgCloud
   # accepts a relative image path and height width parameters.
   def self.request_url(image_path, options = {})
     transform_args = []
-    
+    #prepare borderColor parameter for appending in transform parameters in url.
+    if options[:borderColor]
+      if options[:borderColor][0,1].eql?'#'
+        borderColor = options[:borderColor].gsub('#', '')
+      elsif options[:borderColor][0,3].eql?'rgb'  
+        borderColor = options[:borderColor].gsub(',', '-')
+        if options[:borderColor][0,3].eql?'rgba'
+          colorParams = options[:borderColor].split('-')
+          opacity = (colorParams.pop.to_f*100).to_i
+          colorParams << opacity.to_s + ')'
+          borderColor = colorParams.join('-')
+        end
+      else
+        borderColor = options[:borderColor]
+      end  
+    end
+      
     transform_args << "h_#{options[:height]}" if (options[:height].to_i > 0)
     transform_args << "w_#{options[:width]}"  if (options[:width].to_i > 0)
     transform_args << "blur_#{options[:blur]}" if (options[:blur].to_i > 0)
@@ -57,8 +73,10 @@ module ImgCloud
     transform_args << "crop" if options[:crop]
     transform_args << "scale" if options[:scale]
     transform_args << "grayscale" if options[:grayscale]
-    if (options[:borderWidth].to_i > 0) or options[:borderColor]
-      transform_args << "bdr_#{options[:borderWidth]}-#{options[:borderColor]}"
+    if (options[:borderWidth].to_i > 0)
+      border = "bdr_#{options[:borderWidth]}"
+      border += "-#{borderColor}" if borderColor
+      transform_args << border
     end  
 
     args = transform_args.join(',')

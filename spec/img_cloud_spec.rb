@@ -43,14 +43,16 @@ describe ImgCloud do
     
     let(:del_response) { subject.delete(JSON.parse(response.body)['urls'][0]) }
 
+    let(:del_body) { del_response.body}
+
     it 'should be able to delete the uploaded image' do
       expect {
-        JSON.parse(del_response.body)
+        JSON.parse(del_body)
       }.to_not raise_error
     end
 
     it 'should include deleted message' do
-      body = JSON.parse(del_response.body)
+      body = JSON.parse(del_body)
       expect(body).to include('message')
       expect(body['message']).to eq("deleted")
     end
