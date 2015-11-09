@@ -55,8 +55,8 @@ module ImgCloud
         borderColor = options[:borderColor].gsub('#', '')
       elsif options[:borderColor][0,3].eql?'rgb'  
         borderColor = options[:borderColor].gsub(',', '-')
-        if options[:borderColor][0,3].eql?'rgba'
-          colorParams = options[:borderColor].split('-')
+        if options[:borderColor][0,4].eql?'rgba'
+          colorParams = borderColor.split('-')
           opacity = (colorParams.pop.to_f*100).to_i
           colorParams << opacity.to_s + ')'
           borderColor = colorParams.join('-')
